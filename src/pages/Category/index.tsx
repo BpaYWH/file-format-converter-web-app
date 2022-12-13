@@ -13,7 +13,7 @@ function Category() {
             <Link href='/' underline='none' color='inherit'>
                File Converter
             </Link>
-            <Link href={category} underline='none' color='text.primary'>
+            <Link href={category} color='text.primary'>
                {category && fileExtensionConfig[category]?.category}
             </Link>
          </Breadcrumbs>

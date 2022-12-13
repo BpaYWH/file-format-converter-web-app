@@ -1,31 +1,45 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled from '@mui/system/styled';
+
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Link from '@mui/material/Link';
 
 import { fileExtensionConfig } from '../../utils/constants';
 
-const Menu = styled.div`
-   display: grid;
-   grid-template-columns: 1fr 1fr;
-`;
+const PageContainer = styled('div')({
+   // padding: '0 5%'
+});
+
+const Menu = styled('div')({
+   display: 'grid',
+   gridTemplateColumns: '1fr 1fr',
+   gap: '16px',
+});
+
+const CenteredText = styled('p')({
+   textAlign: 'center'
+});
 
 function Home() {
 
    return (
-      <div>
+      <PageContainer>
          <h1>File Converter</h1>
-         <h2>Choose your file category</h2>
+         <CenteredText>Choose your file category</CenteredText>
          <Menu>
             {
                Object.keys(fileExtensionConfig).map(category =>
-                  <Link to={category} key={`category: ${category}}`}>
-                     <button>
-                        {fileExtensionConfig[category].category}
-                     </button>
+                  <Link href={category} underline='none' key={`category: ${category}}`}>
+                     <Card>
+                        <CardContent>
+                           {fileExtensionConfig[category].category}
+                        </CardContent>
+                     </Card>
                   </Link>
                )
             }
          </Menu>
-      </div>
+      </PageContainer>
    )
 }
 
