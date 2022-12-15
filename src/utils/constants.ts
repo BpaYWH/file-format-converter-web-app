@@ -14,7 +14,7 @@ export const fileExtensionConfig: IFileConfig = {
    },
    "image": {
       category: "Image",
-      extensions: ["jpg", "png", "bmp"],
+      extensions: ["jpg", "png", "bmp", "mpeg"],
    },
    "audio": {
       category: "Audio",
