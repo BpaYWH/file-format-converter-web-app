@@ -9,9 +9,7 @@ import ActionHint from '../../components/ActionHint';
 import FlexLinkBox from '../../components/FlexLinkBox';
 import GridMenu from '../../components/GridMenu';
 import PaddedButton from '../../components/PaddedButton';
-import PageContainer from '../../components/PageContainer';
 import SystemGrid from '../../components/SystemGrid';
-import Title from '../../components/Title';
 
 const CPageNum = styled(Pagination)({
    gridRowStart: 18,
@@ -51,8 +49,7 @@ function Category() {
    }, [page, extension]);
 
    return (
-      <PageContainer>
-         <Title>File Converter</Title>
+      <>
          <SystemGrid>
             <GridMenu>
                <ActionHint>Choose your desired extension</ActionHint>
@@ -73,7 +70,7 @@ function Category() {
          <BackButton href='/' disableRipple>
             Back
          </BackButton>
-      </PageContainer>
+      </>
    )
 }
 

@@ -5,14 +5,11 @@ import ActionHint from '../../components/ActionHint';
 import FlexLinkBox from '../../components/FlexLinkBox';
 import GridMenu from '../../components/GridMenu';
 import PaddedButton from '../../components/PaddedButton';
-import PageContainer from '../../components/PageContainer';
 import SystemGrid from '../../components/SystemGrid';
-import Title from '../../components/Title';
 
 function Home() {
    return (
-      <PageContainer>
-         <Title>File Converter</Title>
+
          <SystemGrid>
             <GridMenu>
                <ActionHint color='primary'>Choose your file category</ActionHint>
@@ -29,7 +26,6 @@ function Home() {
                }
             </GridMenu>
          </SystemGrid>
-      </PageContainer>
    )
 }
 

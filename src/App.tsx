@@ -1,22 +1,21 @@
-import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { ThemeProvider } from '@mui/system';
+import { BrowserRouter } from "react-router-dom";
 
-import Home from "./pages/Home";
-import Category from "./pages/Category";
-import FileExtension from "./pages/FileExtension";
+import AnimatedRoutes from "./components/AnimatedRoutes";
 
 import { theme } from "./utils/theme";
+import PageContainer from "./components/PageContainer";
+import Title from "./components/Title";
 
 function App() {
    return (
       <ThemeProvider theme={theme}>
-         <BrowserRouter>
-            <Routes>
-               <Route path="" element={<Home />} />
-               <Route path=":category" element={<Category />} />
-               <Route path=":category/:extension" element={<FileExtension />} />
-            </Routes>
-         </BrowserRouter>
+         <PageContainer>
+            <Title>File Converter</Title>
+            <BrowserRouter>
+               <AnimatedRoutes />
+            </BrowserRouter>
+         </PageContainer >
       </ThemeProvider>
    )
 }
