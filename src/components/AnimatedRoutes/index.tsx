@@ -1,41 +1,28 @@
-import { Outlet, Route, Routes, useLocation } from "react-router-dom";
-import { AnimatePresence, motion } from "framer-motion";
-import styled from '@mui/system/styled';
+import { Route, Routes, useLocation } from "react-router-dom";
+import { AnimatePresence } from "framer-motion";
 
 import Home from "../../pages/Home";
 import Category from "../../pages/Category";
 import FileExtension from "../../pages/FileExtension";
-
-const SystemMotion = styled(motion.div)({
-   gridRowStart: '8',
-});
-
-const Template = () => {
-   return (
-
-         <SystemMotion
-            initial={{ x: -window.innerWidth }}
-            animate={{ x: 0 }}
-            exit={{ x: -window.innerWidth, transition: { duration: 0.5 } }}
-         >
-            <Outlet />
-         </SystemMotion >
-   );
-}
+import PageContainer from "../../components/PageContainer";
+import Title from "../../components/Title";
 
 function AnimatedRoutes() {
    const location = useLocation();
 
    return (
-      <AnimatePresence>
-         <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Template />} >
-               <Route path="/" element={<Home />} />
-               <Route path="/:category" element={<Category />} />
-               <Route path="/:category/:extension" element={<FileExtension />} />
-            </Route>
-         </Routes>
-      </AnimatePresence>
+      <PageContainer>
+         <Title>File Converter</Title>
+         <AnimatePresence mode="wait">
+            <Routes location={location} key={location.pathname}>
+               <Route path="" element={<Home />} />
+               <Route path=":category" element={<Category />} />
+               <Route path=":category/:extension" element={<FileExtension />} />
+
+               {/* <Route path="*" element={<PageNotFound />} /> */}
+            </Routes>
+         </AnimatePresence>
+      </PageContainer >
    )
 }
 

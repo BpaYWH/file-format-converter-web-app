@@ -7,7 +7,6 @@ const PaddedButton = styled(Button)({
    flexGrow: '1',
    padding: '16px 24px',
    borderRadius: '6px',
-   maxWidth: '800px'
 });
 
 export default PaddedButton;

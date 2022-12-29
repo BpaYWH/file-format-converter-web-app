@@ -8,7 +8,9 @@ import ActionHint from '../../components/ActionHint';
 import GridMenu from '../../components/GridMenu';
 import PaddedButton from '../../components/PaddedButton';
 import SystemGrid from '../../components/SystemGrid';
+import SystemMotion from '../../components/SystemMotion';
 import { Box, Typography } from '@mui/material';
+import FlexLinkBox from '../../components/FlexLinkBox';
 
 const SpaceBtwDiv = styled('div')({
    display: 'flex',
@@ -40,7 +42,11 @@ function FileExtension() {
    const [downloadable, setDownloadable] = useState<boolean>(false);
 
    return (
-      <>
+      <SystemMotion
+         initial={{ x: -window.innerWidth, opacity: 0 }}
+         animate={{ x: [-window.innerWidth / 2, 0,], opacity: [0, 0.33, 0.66, 1], transition: { duration: 0.5, ease: 'easeOut' } }}
+         exit={{ x: -1000, opacity: 0, transition: { duration: 0.5 } }}
+      >
          <ExtensionHint>Upload file and configure your conversion settings</ExtensionHint>
          <SystemGrid>
             <GridMenu>
@@ -58,10 +64,12 @@ function FileExtension() {
                </SpaceBtwDiv>
             </GridMenu>
          </SystemGrid>
-         <BackButton href='/' disableRipple>
-            Back
+         <BackButton disableRipple>
+            <FlexLinkBox to={`../${category}`}>
+               Back
+            </FlexLinkBox>
          </BackButton>
-      </>
+      </SystemMotion>
    )
 }
 

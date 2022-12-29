@@ -1,11 +1,11 @@
 import styled from '@mui/system/styled';
 
 const GridMenu = styled('div')({
-   gridColumn: '2 / span 6',
-   display: 'grid',
-   gridTemplateColumns: '1fr',
-   rowGap: '40px',
-   justifyItems: 'stretch'
+   gridColumn: '3 / span 4',
+   display: 'flex',
+   flexDirection: 'column',
+   gap: '40px',
+   alignItems: 'stretch',
 });
 
 export default GridMenu;

@@ -6,10 +6,12 @@ import { Pagination } from '@mui/material';
 
 import { fileExtensionConfig } from '../../utils/constants';
 import ActionHint from '../../components/ActionHint';
+import BackLinkBox from '../../components/BackLinkBox';
 import FlexLinkBox from '../../components/FlexLinkBox';
 import GridMenu from '../../components/GridMenu';
 import PaddedButton from '../../components/PaddedButton';
 import SystemGrid from '../../components/SystemGrid';
+import SystemMotion from '../../components/SystemMotion';
 
 const CPageNum = styled(Pagination)({
    gridRowStart: 18,
@@ -17,12 +19,10 @@ const CPageNum = styled(Pagination)({
 });
 
 const BackButton = styled(PaddedButton)({
-   gridRowEnd: 28,
-   justifySelf: 'center',
-   maxWidth: '80px',
    '&:hover': {
       backgroundColor: 'transparent'
-   }
+   },
+   padding: 0
 });
 
 function Category() {
@@ -49,28 +49,36 @@ function Category() {
    }, [page, extension]);
 
    return (
-      <>
+      <SystemMotion
+         initial={{ x: -window.innerWidth, opacity: 0 }}
+         animate={{ x: [-window.innerWidth / 2, 0,], opacity: [0, 0.33, 0.66, 1], transition: { duration: 0.5, ease: 'easeOut' } }}
+         exit={{ x: -1000, opacity: 0, transition: { duration: 0.5 } }}
+      >
          <SystemGrid>
             <GridMenu>
                <ActionHint>Choose your desired extension</ActionHint>
                {
                   pagedExtension.map(ext =>
-                     <FlexLinkBox href={`${category}/${ext}`} key={`file-extension: ${ext}}`}>
+                     <FlexLinkBox to={`${ext}`} key={`file-extension: ${ext}}`}>
                         <PaddedButton variant='contained' color='primary' disableRipple>
                            {ext}
                         </PaddedButton>
                      </FlexLinkBox>
                   )
                }
+               <BackLinkBox to='/'>
+                  <BackButton disableRipple>
+                     Back
+                  </BackButton>
+               </BackLinkBox>
             </GridMenu>
          </SystemGrid>
          {(pageCount > 1) &&
             <CPageNum count={pageCount} onChange={handlePageChange} page={page} />
          }
-         <BackButton href='/' disableRipple>
-            Back
-         </BackButton>
-      </>
+
+
+      </SystemMotion>
    )
 }
 
