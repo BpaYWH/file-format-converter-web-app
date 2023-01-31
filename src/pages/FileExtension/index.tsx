@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 
 import { fileExtensionConfig } from '../../utils/constants';
 import ActionHint from '../../components/ActionHint';
+import DropZone from '../../components/DropZone';
 import GridMenu from '../../components/GridMenu';
 import PaddedButton from '../../components/PaddedButton';
 import SystemGrid from '../../components/SystemGrid';
@@ -15,8 +16,6 @@ import FlexLinkBox from '../../components/FlexLinkBox';
 const SpaceBtwDiv = styled('div')({
    display: 'flex',
    justifyContent: 'space-between',
-   // paddingBottom: '8px',
-   // borderBottom: 'inset grey 1px',
 });
 
 const BackButton = styled(PaddedButton)({
@@ -47,17 +46,22 @@ function FileExtension() {
          animate={{ x: [-window.innerWidth / 2, 0,], opacity: [0, 0.33, 0.66, 1], transition: { duration: 0.5, ease: 'easeOut' } }}
          exit={{ x: -1000, opacity: 0, transition: { duration: 0.5 } }}
       >
-         <ExtensionHint>Upload file and configure your conversion settings</ExtensionHint>
          <SystemGrid>
             <GridMenu>
+               <ExtensionHint>Upload file and configure your conversion settings</ExtensionHint>
                <SpaceBtwDiv>
                   <Typography variant='h5' >Uploaded files</Typography>
-                  <Button variant='contained'>Upload +</Button>
+                  <Button variant='contained'>
+                     Upload +
+                     <input hidden accept="image/*" type="file" multiple />
+                  </Button>
+                  
                </SpaceBtwDiv>
+               {/* List of uploaded files */}
                <div>
-                  {/* List of uploaded files */}
+                  <DropZone />
                </div>
-               <hr />
+
                <SpaceBtwDiv>
                   <Button variant='contained' disabled={!downloadable}>Download</Button>
                   <Button variant='contained'>Convert to {extension}</Button>
