@@ -18,6 +18,7 @@ function DropZone(props: TDropZoneProps) {
       } else {
         newFileList.push(file);
       }
+      console.log(file);
     }
     props.setValidFileList(newFileList);
   }
@@ -46,9 +47,9 @@ function DropZone(props: TDropZoneProps) {
       <div onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}>
         {
           !dragActive ?
-            <p>Drag your {props.extension} file(s) here</p>
+            <p>or Drag your {props.category} file(s) here</p>
             :
-            <p>Drop to upload file(s)</p>
+            <p>Drop to upload</p>
         }
       </div>
     </>

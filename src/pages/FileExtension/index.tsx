@@ -5,6 +5,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
 import { fileExtensionConfig } from '../../utils/constants';
+import { loadImage } from '../../utils/imageConvert';
 
 import ActionHint from '../../components/ActionHint';
 import DropZone from './DropZone';
@@ -41,10 +42,27 @@ const FileListDiv = styled('div')({
    padding: "16px 0 16px 0"
 });
 
+const testFile1 = new File([], "long long long long long long long name");
+const testFile2 = new File([], "short name");
+
+const UploadHint = "Upload file and configure your conversion settings";
+const ConvertHint = "Converted files will be download automatically";
+
 function FileExtension() {
    const { category, extension } = useParams();
-   const [downloadable, setDownloadable] = useState<boolean>(false);
-   const [uploadedFiles, setUploadedFiles] = useState<File[]>([new File([], "test")]);
+   const [hint, setHint] = useState<string>(UploadHint);
+   const [uploadedFiles, setUploadedFiles] = useState<File[]>([testFile1, testFile2]);
+
+   const handleConvert = () => {
+      if (!extension) return;
+      setHint(ConvertHint);
+      // let url;
+      uploadedFiles.forEach(file => {
+         // url = window.URL.createObjectURL(file);
+         loadImage(file, extension);
+      });
+
+   }
 
    return (
       <SystemMotion
@@ -54,23 +72,23 @@ function FileExtension() {
       >
          <SystemGrid>
             <GridMenu>
-               <ExtensionHint>Upload file and configure your conversion settings</ExtensionHint>
+               <ExtensionHint>{hint}</ExtensionHint>
                <SpaceBtwDiv id="upload-nav-div">
                   <Typography variant='h5' >Uploaded files</Typography>
                   <Button variant='contained'>
                      Upload +
-                     <input hidden accept="image/*" type="file" multiple />
+                     <input hidden accept={`${category}/*`} type="file" multiple />
                   </Button>
                </SpaceBtwDiv>
 
                <FileListDiv>
-                  <FileList fileList={uploadedFiles}/>
+                  <FileList fileList={uploadedFiles} setFileList={setUploadedFiles} />
                   <DropZone category={category} extension={extension} validFileList={uploadedFiles} setValidFileList={setUploadedFiles} />
                </FileListDiv>
 
                <SpaceBtwDiv id="convert-nav-div">
-                  <Button variant='contained' disabled={!downloadable}>Download</Button>
-                  <Button variant='contained'>Convert to {extension}</Button>
+                  {/* <Button variant='contained' disabled={!downloadable}>Download</Button> */}
+                  <Button variant='contained' disabled={!uploadedFiles.length} onClick={handleConvert}>Convert to {extension}</Button>
                </SpaceBtwDiv>
             </GridMenu>
          </SystemGrid>
