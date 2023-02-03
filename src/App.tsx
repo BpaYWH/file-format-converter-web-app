@@ -1,9 +1,9 @@
 import { ThemeProvider } from '@mui/system';
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from 'react-router-dom';
 
-import AnimatedRoutes from "./components/AnimatedRoutes";
+import AnimatedRoutes from './components/AnimatedRoutes';
 
-import { theme } from "./utils/theme";
+import { theme } from './utils/theme';
 
 function App() {
    return (

@@ -1,19 +1,49 @@
-const availType = new Set(['png', 'jpeg', 'jpg', 'bmp', 'tiff']);
+const availType = new Set(['png', 'jpeg', 'jpg', 'bmp', 'tiff', 'gif']);
 
-export const loadImage = async (file: File, extIn: string) => {
-    if (!availType.has(extIn)) return;
-    const imgBuffer = await file.arrayBuffer();
-    const blob = new Blob([imgBuffer]);
-                            
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = "filename.jpg";
-    document.body.appendChild(a);
-    a.click();
-    window.URL.revokeObjectURL(url);
-}
+const downloadHandler = (url: string, filename: string) => {
+   const a = document.createElement('a');
+   a.href = url;
+   a.download = filename;
+   document.body.appendChild(a);
+   a.click();
+   document.body.removeChild(a);
+};
 
-export const convert = () => {
-    return ;
-}
+const convertHandler = (
+   imgUrl: string,
+   filename: string,
+   outputMIME: string
+) => {
+   const img = new Image();
+   img.src = imgUrl;
+   img.onload = () => {
+      const c = document.createElement('canvas');
+      const ctx = c.getContext('2d');
+
+      c.width = img.width;
+      c.height = img.height;
+      ctx?.drawImage(img, 0, 0);
+      const imgDataUrl = c.toDataURL(outputMIME);
+
+      downloadHandler(imgDataUrl, filename);
+
+      URL.revokeObjectURL(imgUrl);
+   };
+};
+
+export const convertImg = async (files: File[], extOut: string) => {
+   let extId, imgUrl;
+   for (const file of files) {
+      extId = file.name.lastIndexOf('.');
+      if (extId === -1) return;
+      if (!availType.has(file.name.substring(extId + 1))) return;
+
+      imgUrl = URL.createObjectURL(file);
+
+      convertHandler(
+         imgUrl,
+         file.name.substring(0, extId + 1) + extOut,
+         'image/' + extOut
+      );
+   }
+};

@@ -1,11 +1,11 @@
-import { Route, Routes, useLocation } from "react-router-dom";
-import { AnimatePresence } from "framer-motion";
+import { Route, Routes, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 
-import Home from "../../pages/Home";
-import Category from "../../pages/Category";
-import FileExtension from "../../pages/FileExtension";
-import PageContainer from "../../components/PageContainer";
-import Title from "../../components/Title";
+import Home from '../../pages/Home';
+import Category from '../../pages/Category';
+import FileExtension from '../../pages/FileExtension';
+import PageContainer from '../../components/PageContainer';
+import Title from '../../components/Title';
 
 function AnimatedRoutes() {
    const location = useLocation();

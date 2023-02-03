@@ -5,12 +5,12 @@ import Typography from '@mui/material/Typography';
 
 type TFileListProps = {
     fileList: File[],
-    setFileList: Function
+    setFileList: React.Dispatch<React.SetStateAction<File[]>>
 };
 type TFilePanelProps = {
     name: string,
     id: number,
-    handleDelete: Function
+    handleDelete: (id: number) => void
 };
 
 type TProgressDivProps = {
@@ -18,9 +18,9 @@ type TProgressDivProps = {
 };
 
 const VertFlexDiv = styled('div')({
-    display: "flex",
-    flexDirection: "column",
-    gap: "16px"
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '16px'
 });
 
 const SpaceBtwDiv = styled('div')({
@@ -29,29 +29,29 @@ const SpaceBtwDiv = styled('div')({
 });
 
 const PanelDiv = styled('div')({
-    border: "solid grey 1px",
-    borderRadius: "4px",
+    border: 'solid grey 1px',
+    borderRadius: '4px',
 });
 
 const PanelContentContainer = styled('div')({
-    position: "relative",
-    top: "-100%",
-    padding: "12px 16px 12px 16px",
+    position: 'relative',
+    top: '-100%',
+    padding: '12px 16px 12px 16px',
 });
 
 const ProgressDiv = styled('div')((props: TProgressDivProps) => ({
-    backgroundColor: "rgba(0, 200, 0, 0.3)",
-    borderRadius: "4px",
-    position: "relative",
+    backgroundColor: 'rgba(0, 200, 0, 0.3)',
+    borderRadius: '4px',
+    position: 'relative',
     width: props.width,
-    height: "100%",
+    height: '100%',
 }));
 
 function FilePanel(props: TFilePanelProps) {
     return (
         <SpaceBtwDiv>
                 <PanelDiv>
-                    <ProgressDiv width="10%" />
+                    <ProgressDiv width="0%" />
                     <PanelContentContainer>
                         {props.name}
                     </PanelContentContainer>
@@ -66,7 +66,7 @@ function FilePanel(props: TFilePanelProps) {
 
 function FileList(props: TFileListProps) {
     const handleDelete = (id: number) => {
-        let newFileList = [...props.fileList];
+        const newFileList = [...props.fileList];
         newFileList.splice(id, 1);
         props.setFileList(newFileList);
     }

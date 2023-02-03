@@ -32,7 +32,7 @@ function Category() {
    const [pagedExtension, setPagedExtension] = useState<string[]>([]);
    const [extension, setExtension] = useState<string[]>([]);
 
-   const handlePageChange = (e: any, pageNum: number) => setPage(pageNum);
+   const handlePageChange = (e: React.ChangeEvent<unknown>, pageNum: number) => setPage(pageNum);
 
    useEffect(() => {
       if (category) {
