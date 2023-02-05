@@ -23,7 +23,7 @@ export const fileExtensionConfig: IFileConfig = {
    audio: {
       category: 'Audio',
       type: 'audio',
-      extensions: ['wav', 'mp3']
+      extensions: ['wav', 'mp3', 'aac', 'ogg', 'flac', 'aiff']
    }
    // video: {
    //    category: 'Video',

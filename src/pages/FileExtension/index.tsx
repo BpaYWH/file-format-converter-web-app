@@ -6,6 +6,7 @@ import Typography from '@mui/material/Typography';
 
 // import { fileExtensionConfig } from '../../utils/constants';
 import { convertImg } from '../../utils/imageConvert';
+import { convertAudio } from '../../utils/audioConvert';
 
 import ActionHint from '../../components/ActionHint';
 import DropZone from './DropZone';
@@ -51,6 +52,7 @@ function FileExtension() {
    const { category, extension } = useParams();
    const [hint, setHint] = useState<string>(UploadHint);
    // const [uploadedFiles, setUploadedFiles] = useState<File[]>([testFile1, testFile2]);
+   //* Max. total file size is 2GB
    const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
    const handleConvert = () => {
@@ -63,6 +65,7 @@ function FileExtension() {
             break;
          }
          case 'audio': {
+            convertAudio(uploadedFiles, extension);
             break;
          }
 
