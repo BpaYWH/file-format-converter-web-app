@@ -19,6 +19,9 @@ function AnimatedRoutes() {
                <Route path=":category" element={<Category />} />
                <Route path=":category/:extension" element={<FileExtension />} />
 
+               {/*
+                  // TODO: Page not found handler 
+               */}
                {/* <Route path="*" element={<PageNotFound />} /> */}
             </Routes>
          </AnimatePresence>

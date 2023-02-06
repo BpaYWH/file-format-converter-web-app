@@ -9,12 +9,6 @@ interface IFileConfig {
 }
 
 export const fileExtensionConfig: IFileConfig = {
-   // application/pdf
-   // 'text-doc': {
-   //    category: 'Text Document',
-   //    type: 'text',
-   //    extensions: ['doc', 'pdf', 'txt']
-   // },
    image: {
       category: 'Image',
       type: 'image',
@@ -24,10 +18,10 @@ export const fileExtensionConfig: IFileConfig = {
       category: 'Audio',
       type: 'audio',
       extensions: ['wav', 'mp3', 'aac', 'ogg', 'flac', 'aiff']
+   },
+   video: {
+      category: 'Video',
+      type: 'video',
+      extensions: ['mp4', 'MOV', 'wmv', 'flv', 'mkv', 'webm', 'avi']
    }
-   // video: {
-   //    category: 'Video',
-   //    type: 'video',
-   //    extensions: ['mp4', 'webm', 'h264', 'avi']
-   // }
 };

@@ -4,9 +4,9 @@ import { styled } from '@mui/system';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-// import { fileExtensionConfig } from '../../utils/constants';
 import { convertImg } from '../../utils/imageConvert';
 import { convertAudio } from '../../utils/audioConvert';
+import { convertVideo } from '../../utils/videoConvert';
 
 import ActionHint from '../../components/ActionHint';
 import DropZone from './DropZone';
@@ -42,16 +42,12 @@ const FileListDiv = styled('div')({
    padding: '16px 0 16px 0'
 });
 
-const testFile1 = new File([], 'long long long long long long long name');
-const testFile2 = new File([], 'short name');
-
 const UploadHint = 'Upload file and configure your conversion settings';
 const ConvertHint = 'Converted files will be download automatically';
 
 function FileExtension() {
    const { category, extension } = useParams();
    const [hint, setHint] = useState<string>(UploadHint);
-   // const [uploadedFiles, setUploadedFiles] = useState<File[]>([testFile1, testFile2]);
    //* Max. total file size is 2GB
    const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
@@ -66,6 +62,10 @@ function FileExtension() {
          }
          case 'audio': {
             convertAudio(uploadedFiles, extension);
+            break;
+         }
+         case 'video': {
+            convertVideo(uploadedFiles, extension);
             break;
          }
 
