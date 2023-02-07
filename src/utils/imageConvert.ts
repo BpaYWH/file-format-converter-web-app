@@ -26,13 +26,11 @@ const convertHandler = (
       const imgDataUrl = c.toDataURL(outputMIME);
 
       downloadHandler(imgDataUrl, filename);
-
-      URL.revokeObjectURL(imgUrl);
    };
 };
 
 export const convertImg = async (files: File[], extOut: string) => {
-   let extId, imgUrl;
+   let extId: number, imgUrl: string;
    for (const file of files) {
       extId = file.name.lastIndexOf('.');
       if (extId === -1) return;
@@ -40,10 +38,18 @@ export const convertImg = async (files: File[], extOut: string) => {
 
       imgUrl = URL.createObjectURL(file);
 
-      convertHandler(
-         imgUrl,
-         file.name.substring(0, extId + 1) + extOut,
-         'image/' + extOut
-      );
+      await new Promise((res) => {
+         setTimeout(() => {
+            res(
+               convertHandler(
+                  imgUrl,
+                  file.name.substring(0, extId + 1) + extOut,
+                  'image/' + extOut
+               )
+            );
+         }, 500);
+      });
+
+      URL.revokeObjectURL(imgUrl);
    }
 };

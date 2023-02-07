@@ -5,22 +5,11 @@ type TDropZoneProps = {
    extension?: string;
    validFileList: File[];
    setValidFileList: React.Dispatch<React.SetStateAction<File[]>>;
+   validateFile: (files: FileList) => void;
 };
 
 function DropZone(props: TDropZoneProps) {
    const [dragActive, setDragActive] = React.useState(false);
-
-   const validateFile = (files: FileList) => {
-      const newFileList = [...props.validFileList];
-      for (const file of files) {
-         if (file.type.split('/')[0] !== props.category) {
-            console.log(file.name, 'is not a', props.category, 'file');
-         } else {
-            newFileList.push(file);
-         }
-      }
-      props.setValidFileList(newFileList);
-   };
 
    const handleDrag = (e: React.DragEvent) => {
       e.preventDefault();
@@ -37,7 +26,7 @@ function DropZone(props: TDropZoneProps) {
       e.stopPropagation();
       setDragActive(false);
       if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-         validateFile(e.dataTransfer.files);
+         props.validateFile(e.dataTransfer.files);
       }
    };
 

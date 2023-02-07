@@ -5,7 +5,7 @@ const GridMenu = styled('div')({
    display: 'flex',
    flexDirection: 'column',
    gap: '40px',
-   alignItems: 'stretch',
+   alignItems: 'stretch'
 });
 
 export default GridMenu;

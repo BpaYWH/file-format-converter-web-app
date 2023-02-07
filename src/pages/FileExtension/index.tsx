@@ -51,6 +51,26 @@ function FileExtension() {
    //* Max. total file size is 2GB
    const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
 
+   const validate = (files: FileList) => {
+      const newFileList = [...uploadedFiles];
+      for (const file of files) {
+         if (file.type.split('/')[0] !== category) {
+            console.log(file.name, 'is not a', category, 'file');
+         } else {
+            newFileList.push(file);
+         }
+      }
+      setUploadedFiles(newFileList);
+   };
+
+   const handleUpload = (e: any) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.target.files && e.target.files[0]) {
+         validate(e.target.files);
+      }
+   };
+
    const handleConvert = () => {
       if (!extension || !category) return;
       setHint(ConvertHint);
@@ -88,13 +108,14 @@ function FileExtension() {
                <ExtensionHint>{hint}</ExtensionHint>
                <SpaceBtwDiv id='upload-nav-div'>
                   <Typography variant='h5'>Uploaded files</Typography>
-                  <Button variant='contained'>
+                  <Button variant='contained' component='label'>
                      Upload +
                      <input
                         hidden
                         accept={`${category}/*`}
                         type='file'
                         multiple
+                        onChange={handleUpload}
                      />
                   </Button>
                </SpaceBtwDiv>
@@ -109,11 +130,14 @@ function FileExtension() {
                      extension={extension}
                      validFileList={uploadedFiles}
                      setValidFileList={setUploadedFiles}
+                     validateFile={validate}
                   />
                </FileListDiv>
 
                <SpaceBtwDiv id='convert-nav-div'>
-                  {/* <Button variant='contained' disabled={!downloadable}>Download</Button> */}
+                  <FlexLinkBox to={`../${category}`}>
+                     <BackButton>Back</BackButton>
+                  </FlexLinkBox>
                   <Button
                      variant='contained'
                      disabled={!uploadedFiles.length}
@@ -124,10 +148,6 @@ function FileExtension() {
                </SpaceBtwDiv>
             </GridMenu>
          </SystemGrid>
-
-         <BackButton disableRipple>
-            <FlexLinkBox to={`../${category}`}>Back</FlexLinkBox>
-         </BackButton>
       </SystemMotion>
    );
 }

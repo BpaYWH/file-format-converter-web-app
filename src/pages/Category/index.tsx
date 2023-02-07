@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import styled from '@mui/system/styled';
-import { Pagination } from '@mui/material';
+import Pagination from '@mui/material/Pagination';
 
 import { fileExtensionConfig } from '../../utils/constants';
 import ActionHint from '../../components/ActionHint';
@@ -14,8 +14,11 @@ import SystemGrid from '../../components/SystemGrid';
 import SystemMotion from '../../components/SystemMotion';
 
 const CPageNum = styled(Pagination)({
-   gridRowStart: 18,
-   justifySelf: 'center'
+   // gridRowStart: 18,
+   // justifySelf: 'center'
+   // marginLeft: 'auto',
+   // marginRight: 'auto'
+   alignSelf: 'center'
 });
 
 const BackButton = styled(PaddedButton)({
@@ -32,14 +35,16 @@ function Category() {
    const [pagedExtension, setPagedExtension] = useState<string[]>([]);
    const [extension, setExtension] = useState<string[]>([]);
 
-   const handlePageChange = (e: React.ChangeEvent<unknown>, pageNum: number) => setPage(pageNum);
+   const handlePageChange = (e: React.ChangeEvent<unknown>, pageNum: number) =>
+      setPage(pageNum);
 
    useEffect(() => {
       if (category) {
          setExtension(fileExtensionConfig[category]?.extensions);
-         setPageCount(Math.ceil(fileExtensionConfig[category]?.extensions.length / 4));
-      }
-      else {
+         setPageCount(
+            Math.ceil(fileExtensionConfig[category]?.extensions.length / 4)
+         );
+      } else {
          setExtension([]);
          setPageCount(0);
       }
@@ -51,35 +56,41 @@ function Category() {
    return (
       <SystemMotion
          initial={{ x: -window.innerWidth, opacity: 0 }}
-         animate={{ x: [-window.innerWidth / 2, 0,], opacity: [0, 0.33, 0.66, 1], transition: { duration: 0.5, ease: 'easeOut' } }}
+         animate={{
+            x: [-window.innerWidth / 2, 0],
+            opacity: [0, 0.33, 0.66, 1],
+            transition: { duration: 0.5, ease: 'easeOut' }
+         }}
          exit={{ x: -1000, opacity: 0, transition: { duration: 0.5 } }}
       >
          <SystemGrid>
             <GridMenu>
                <ActionHint>Choose your desired extension</ActionHint>
-               {
-                  pagedExtension.map(ext =>
-                     <FlexLinkBox to={`${ext}`} key={`file-extension: ${ext}}`}>
-                        <PaddedButton variant='contained' color='primary' disableRipple>
-                           {ext}
-                        </PaddedButton>
-                     </FlexLinkBox>
-                  )
-               }
+               {pagedExtension.map((ext) => (
+                  <FlexLinkBox to={`${ext}`} key={`file-extension: ${ext}}`}>
+                     <PaddedButton
+                        variant='contained'
+                        color='primary'
+                        disableRipple
+                     >
+                        {ext}
+                     </PaddedButton>
+                  </FlexLinkBox>
+               ))}
+               {pageCount > 1 && (
+                  <CPageNum
+                     count={pageCount}
+                     onChange={handlePageChange}
+                     page={page}
+                  />
+               )}
                <BackLinkBox to='/'>
-                  <BackButton disableRipple>
-                     Back
-                  </BackButton>
+                  <BackButton disableRipple>Back</BackButton>
                </BackLinkBox>
             </GridMenu>
          </SystemGrid>
-         {(pageCount > 1) &&
-            <CPageNum count={pageCount} onChange={handlePageChange} page={page} />
-         }
-
-
       </SystemMotion>
-   )
+   );
 }
 
 export default Category;
