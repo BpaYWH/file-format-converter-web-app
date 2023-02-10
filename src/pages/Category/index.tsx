@@ -1,23 +1,19 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import styled from '@mui/system/styled';
 import Pagination from '@mui/material/Pagination';
 
 import { fileExtensionConfig } from '../../utils/constants';
 import ActionHint from '../../components/ActionHint';
-import BackLinkBox from '../../components/BackLinkBox';
-import FlexLinkBox from '../../components/FlexLinkBox';
+// import BackLinkBox from '../../components/BackLinkBox';
+// import FlexLinkBox from '../../components/FlexLinkBox';
 import GridMenu from '../../components/GridMenu';
 import PaddedButton from '../../components/PaddedButton';
 import SystemGrid from '../../components/SystemGrid';
 import SystemMotion from '../../components/SystemMotion';
 
 const CPageNum = styled(Pagination)({
-   // gridRowStart: 18,
-   // justifySelf: 'center'
-   // marginLeft: 'auto',
-   // marginRight: 'auto'
    alignSelf: 'center'
 });
 
@@ -29,6 +25,7 @@ const BackButton = styled(PaddedButton)({
 });
 
 function Category() {
+   const navigate = useNavigate();
    const { category } = useParams();
    const [page, setPage] = useState<number>(1);
    const [pageCount, setPageCount] = useState<number>(1);
@@ -67,15 +64,17 @@ function Category() {
             <GridMenu>
                <ActionHint>Choose your desired extension</ActionHint>
                {pagedExtension.map((ext) => (
-                  <FlexLinkBox to={`${ext}`} key={`file-extension: ${ext}}`}>
+                  // <FlexLinkBox to={`${ext}`} >
                      <PaddedButton
                         variant='contained'
                         color='primary'
                         disableRipple
+                        onClick={() => navigate(ext)}
+                        key={`file-extension: ${ext}}`}
                      >
                         {ext}
                      </PaddedButton>
-                  </FlexLinkBox>
+                  // </FlexLinkBox>
                ))}
                {pageCount > 1 && (
                   <CPageNum
@@ -84,9 +83,9 @@ function Category() {
                      page={page}
                   />
                )}
-               <BackLinkBox to='/'>
-                  <BackButton disableRipple>Back</BackButton>
-               </BackLinkBox>
+               {/* <BackLinkBox to='/'> */}
+                  <BackButton disableRipple onClick={() => navigate('/')}>Back</BackButton>
+               {/* </BackLinkBox> */}
             </GridMenu>
          </SystemGrid>
       </SystemMotion>

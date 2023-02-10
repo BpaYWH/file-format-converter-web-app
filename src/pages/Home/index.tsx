@@ -1,14 +1,16 @@
+import { useNavigate } from 'react-router-dom';
+import { fileExtensionConfig } from '../../utils/constants';
+
 import Typography from '@mui/material/Typography';
 
-import { fileExtensionConfig } from '../../utils/constants';
 import ActionHint from '../../components/ActionHint';
-import FlexLinkBox from '../../components/FlexLinkBox';
 import GridMenu from '../../components/GridMenu';
 import PaddedButton from '../../components/PaddedButton';
 import SystemGrid from '../../components/SystemGrid';
 import SystemMotion from '../../components/SystemMotion';
 
 function Home() {
+   const navigate = useNavigate();
 
    return (
       <SystemMotion
@@ -18,16 +20,14 @@ function Home() {
       >
          <SystemGrid>
             <GridMenu>
-               <ActionHint color='primary'>Choose your file category</ActionHint>
+               <ActionHint data-testid='nav-hint' color='primary'>Choose your file category</ActionHint>
                {
                   Object.keys(fileExtensionConfig).map(category =>
-                     <FlexLinkBox to={category} key={`category: ${category}}`}>
-                        <PaddedButton variant='contained' color='primary' disableRipple>
-                           <Typography color='white'>
-                              {fileExtensionConfig[category].category}
-                           </Typography>
-                        </PaddedButton>
-                     </FlexLinkBox>
+                     <PaddedButton key={`category: ${category}}`} variant='contained' color='primary' disableRipple onClick={() => navigate(category)}>
+                        <Typography color='white'>
+                           {fileExtensionConfig[category].category}
+                        </Typography>
+                     </PaddedButton>
                   )
                }
             </GridMenu>
