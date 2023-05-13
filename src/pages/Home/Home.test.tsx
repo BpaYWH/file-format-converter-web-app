@@ -1,48 +1,45 @@
 import { describe, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MemoryRouter, BrowserRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import Home from '.';
-import AnimatedRoutes from '../../components/AnimatedRoutes';
 import { fileExtensionConfig } from '../../utils/constants';
 
-describe('test is Home rendered', () => {
-   it('Action hint is rendered', () => {
-      render(
-         <MemoryRouter initialEntries={['/']}>
-            <Home />
-         </MemoryRouter>
-      );
-      const hint = screen.findByTestId('nav-hint');
+describe('Home is mounted', () => {
+   beforeEach(() => {
+      render(<Home setRoute={vi.fn()} />, { wrapper: BrowserRouter });
+   });
+
+   it('Action hint is mounted', async () => {
+      const hint = await screen.findByTestId('nav-hint');
       expect(hint).toBeInTheDocument;
    });
 
-   it('Category buttons are rendered', () => {
-      render(
-         <MemoryRouter initialEntries={['/']}>
-            <Home />
-         </MemoryRouter>
-      );
+   it('Category buttons are mounted', () => {
       const buttonGroup = screen.queryAllByRole('button', { hidden: true });
       expect(buttonGroup).toHaveLength(Object.keys(fileExtensionConfig).length);
    });
 });
 
-describe('test buttons can route', () => {
-   it('click button to navigate to category page', async () => {
-      render(
-         <BrowserRouter>
-            <AnimatedRoutes />
-         </BrowserRouter>
-      );
+describe('Buttons onClick event', () => {
+   it('Click category buttons', async () => {
+      const setRoute = vi.fn((route: string) => {});
       const user = userEvent.setup();
       const routeCount = vi.spyOn(user, 'click');
-      const catButton = screen.getAllByRole('button');
+      render(<Home setRoute={setRoute} />, { wrapper: BrowserRouter });
 
-      userEvent.click(catButton[0]);
+      const catButtons = await screen.findAllByTestId('category-btn');
+      catButtons.forEach(async (button, index) => {
+         await user.click(button);
+         expect(button).toHaveTextContent(
+            fileExtensionConfig[Object.keys(fileExtensionConfig)[index]]
+               .category
+         );
+         const text = button.textContent?.toLowerCase() || '';
+         expect(setRoute).toHaveBeenCalledWith(`/${text}`);
+      });
 
-      expect(routeCount).toHaveBeenCalledWith('/image');
-      expect(routeCount).toHaveBeenCalledTimes(1);
+      expect(routeCount).toHaveBeenCalledTimes(catButtons.length);
    });
 });

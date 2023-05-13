@@ -1,4 +1,4 @@
-import styled from '@mui/system/styled';
+import { styled } from '@mui/material/styles';
 import grey from '@mui/material/colors/grey';
 
 const ActionHint = styled('p')({

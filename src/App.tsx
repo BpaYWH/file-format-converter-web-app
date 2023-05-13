@@ -1,4 +1,4 @@
-import { ThemeProvider } from '@mui/system';
+import { ThemeProvider } from '@mui/material/styles';
 import { BrowserRouter } from 'react-router-dom';
 
 import AnimatedRoutes from './components/AnimatedRoutes';
@@ -12,7 +12,7 @@ function App() {
             <AnimatedRoutes />
          </BrowserRouter>
       </ThemeProvider>
-   )
+   );
 }
 
-export default App
+export default App;

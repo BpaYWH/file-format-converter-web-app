@@ -1,4 +1,4 @@
-import styled from '@mui/system/styled';
+import { styled } from '@mui/material/styles';
 
 const GridMenu = styled('div')({
    gridColumn: '3 / span 4',

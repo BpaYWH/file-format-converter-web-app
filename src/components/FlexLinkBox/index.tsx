@@ -1,10 +1,10 @@
-import styled from '@mui/system/styled';
+import { styled } from '@mui/material/styles';
 import { Link } from 'react-router-dom';
 
 const FlexLinkBox = styled(Link)({
    display: 'flex',
    textDecoration: 'none',
-   color: 'black',
+   color: 'black'
 });
 
 export default FlexLinkBox;

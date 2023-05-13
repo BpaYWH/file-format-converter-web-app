@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { styled } from '@mui/system';
+import { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
@@ -8,13 +8,14 @@ import { convertImg } from '../../utils/imageConvert';
 import { convertAudio } from '../../utils/audioConvert';
 import { convertVideo } from '../../utils/videoConvert';
 
+import { fileExtensionConfig } from '../../utils/constants';
 import ActionHint from '../../components/ActionHint';
 import DropZone from './DropZone';
 import FileList from './FileList';
 import FlexLinkBox from '../../components/FlexLinkBox';
-import GridMenu from '../../components/GridMenu';
+import GridMenu from '../../layouts/GridMenu';
 import PaddedButton from '../../components/PaddedButton';
-import SystemGrid from '../../components/SystemGrid';
+import SystemGrid from '../../layouts/SystemGrid';
 import SystemMotion from '../../components/SystemMotion';
 
 const SpaceBtwDiv = styled('div')({
@@ -47,6 +48,7 @@ const ConvertHint = 'Converted files will be download automatically';
 
 function FileExtension() {
    const { category, extension } = useParams();
+   const navigate = useNavigate();
    const [hint, setHint] = useState<string>(UploadHint);
    //* Max. total file size is 2GB
    const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
@@ -93,6 +95,19 @@ function FileExtension() {
       }
    };
 
+   useEffect(() => {
+      if (
+         !(
+            category &&
+            category in fileExtensionConfig &&
+            extension &&
+            fileExtensionConfig[category].extensions.indexOf(extension) > -1
+         )
+      ) {
+         navigate('/not-found');
+      }
+   }, []);
+
    return (
       <SystemMotion
          initial={{ x: -window.innerWidth, opacity: 0 }}
@@ -101,7 +116,7 @@ function FileExtension() {
             opacity: [0, 0.33, 0.66, 1],
             transition: { duration: 0.5, ease: 'easeOut' }
          }}
-         exit={{ x: -1000, opacity: 0, transition: { duration: 0.5 } }}
+         exit={{ x: 1000, opacity: 0, transition: { duration: 0.5 } }}
       >
          <SystemGrid>
             <GridMenu>
