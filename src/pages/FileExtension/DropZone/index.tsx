@@ -8,6 +8,7 @@ type TDropZoneProps = {
    validateFile: (files: FileList) => void;
 };
 
+// TODO: Test case for DropZone
 function DropZone(props: TDropZoneProps) {
    const [dragActive, setDragActive] = React.useState(false);
 

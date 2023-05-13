@@ -47,6 +47,7 @@ const ProgressDiv = styled('div')((props: TProgressDivProps) => ({
    height: '100%'
 }));
 
+// TODO: Test case for file panel && UI review
 function FilePanel(props: TFilePanelProps) {
    return (
       <SpaceBtwDiv>
@@ -66,6 +67,7 @@ function FilePanel(props: TFilePanelProps) {
    );
 }
 
+// TODO: Test case for file list && UI review
 function FileList(props: TFileListProps) {
    const handleDelete = (id: number) => {
       const newFileList = [...props.fileList];

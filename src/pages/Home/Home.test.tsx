@@ -6,6 +6,7 @@ import { BrowserRouter } from 'react-router-dom';
 import Home from '.';
 import { fileExtensionConfig } from '../../utils/constants';
 
+// TODO: Test case review
 describe('Home is mounted', () => {
    beforeEach(() => {
       render(<Home setRoute={vi.fn()} />, { wrapper: BrowserRouter });

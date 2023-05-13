@@ -29,6 +29,7 @@ function AnimatedRoutes() {
 
    return (
       <PageContainer>
+         // TODO: Add a landing animation
          <HomeTitle onClick={() => navigateTo('')}>File Converter</HomeTitle>
          <AnimatePresence mode='wait'>
             <Routes location={location} key={location.pathname}>

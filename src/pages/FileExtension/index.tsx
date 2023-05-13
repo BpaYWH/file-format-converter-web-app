@@ -46,6 +46,7 @@ const FileListDiv = styled('div')({
 const UploadHint = 'Upload file and configure your conversion settings';
 const ConvertHint = 'Converted files will be download automatically';
 
+// TODO: Test case for file extension & UI review
 function FileExtension() {
    const { category, extension } = useParams();
    const navigate = useNavigate();

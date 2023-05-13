@@ -58,6 +58,7 @@ function Category() {
          }}
          exit={{ x: 1000, opacity: 0, transition: { duration: 0.5 } }}
       >
+         // TODO: Proper Back button and PageNum positions
          <SystemGrid>
             <GridMenu>
                <ActionHint data-testid='nav-hint'>

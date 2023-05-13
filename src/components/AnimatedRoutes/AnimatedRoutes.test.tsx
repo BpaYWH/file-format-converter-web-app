@@ -7,6 +7,7 @@ import { MemoryRouter } from 'react-router-dom';
 import AnimatedRoutes from '.';
 import { fileExtensionConfig } from '../../utils/constants';
 
+// TODO: Test case review
 describe('Pages are mounted', () => {
    it('App title is mounted', () => {
       render(

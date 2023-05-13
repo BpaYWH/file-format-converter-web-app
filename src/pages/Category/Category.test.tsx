@@ -6,6 +6,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import Category from '.';
 import { fileExtensionConfig } from '../../utils/constants';
 
+// TODO: Test case review
 const routerSetup = () => {
    const initialRoute = `/${Object.keys(fileExtensionConfig)[0]}`;
    const router = createMemoryRouter(
